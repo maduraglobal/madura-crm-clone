@@ -849,7 +849,7 @@ const Visas: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser }) => {
         }
         setShowDeleteConfirm(false);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             await Promise.all(
                 selectedVisaIds.map(id =>
                     fetch(`${API_BASE}/api/visas/${id}`, {
@@ -874,7 +874,7 @@ const Visas: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser }) => {
 
         setIsSaving(true);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             
             if (visaToSave.id) {
                 // UPDATE
@@ -929,7 +929,7 @@ const Visas: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser }) => {
         }
 
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/visas/${visaId}`, {
                 method: 'DELETE',
                 headers: {
@@ -957,7 +957,7 @@ const Visas: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser }) => {
         }
 
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/visas/template`, {
                 headers: {
                     'Authorization': `Bearer ${session.access_token}`,
@@ -1009,7 +1009,7 @@ const Visas: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser }) => {
 
             setUploadProgress({ uploading: true, progress: 30, message: 'Uploading to server...' });
 
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/visas/bulk-upload`, {
                 method: 'POST',
                 headers: {

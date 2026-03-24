@@ -5231,7 +5231,7 @@ const ActivitiesSection: React.FC<{
         }
 
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/itinerary/generate-activities`, {
                 method: 'POST',
                 headers: {
@@ -10949,7 +10949,7 @@ body, .container {
             }
 
             // Use server-side PDF generation
-            const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE_URL}/api/itinerary/generate-pdf`, {
                 method: 'POST',
                 headers: {
@@ -17058,7 +17058,7 @@ body, .container {
                                             }
 
                                             try {
-                                                const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+                                                const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
                                                 const response = await fetch(`${API_BASE}/api/itinerary/generate-activities`, {
                                                     method: 'POST',
                                                     headers: {

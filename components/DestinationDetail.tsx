@@ -569,7 +569,7 @@ const TransferDetailPanel: React.FC<{
 
         setIsSaving(true);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             
             // First upload image if there's a new file
             let imageUrl = editedTransfer.image_url;
@@ -982,7 +982,7 @@ const DestinationDetail: React.FC<{ destinationId: string; currentUser: LoggedIn
 
         setIsSaving(true);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             
             if (attractionToSave.id) {
                 // UPDATE
@@ -1034,7 +1034,7 @@ const DestinationDetail: React.FC<{ destinationId: string; currentUser: LoggedIn
         }
 
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/sightseeing/${attractionId}`, {
                 method: 'DELETE',
                 headers: {
@@ -1092,7 +1092,7 @@ const DestinationDetail: React.FC<{ destinationId: string; currentUser: LoggedIn
 
         setIsSaving(true);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             
             // Upload image if there's a file
             let imageUrl = transferToSave.image_url;
@@ -1166,7 +1166,7 @@ const DestinationDetail: React.FC<{ destinationId: string; currentUser: LoggedIn
         }
 
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/transfers/${transferId}`, {
                 method: 'DELETE',
                 headers: {
@@ -1203,7 +1203,7 @@ const DestinationDetail: React.FC<{ destinationId: string; currentUser: LoggedIn
 
         setIsSaving(true);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/sightseeing/bulk-update-prices`, {
                 method: 'POST',
                 headers: {
@@ -1248,7 +1248,7 @@ const DestinationDetail: React.FC<{ destinationId: string; currentUser: LoggedIn
 
         setIsSaving(true);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/sightseeing/bulk-update-currency`, {
                 method: 'POST',
                 headers: {
@@ -1304,7 +1304,7 @@ const DestinationDetail: React.FC<{ destinationId: string; currentUser: LoggedIn
 
         setIsSaving(true);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/sightseeing/bulk-delete`, {
                 method: 'POST',
                 headers: {
@@ -1374,7 +1374,7 @@ const DestinationDetail: React.FC<{ destinationId: string; currentUser: LoggedIn
                 destination_id: destination.id,
             }));
 
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/sightseeing/generate-details`, {
                 method: 'POST',
                 headers: {
@@ -1624,7 +1624,7 @@ const DestinationDetail: React.FC<{ destinationId: string; currentUser: LoggedIn
             const attractions = await parseExcelFile(bulkUploadFile);
             setBulkUploadProgress({ total: attractions.length, processed: 0, success: 0, failed: 0 });
 
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/sightseeing/bulk-create`, {
                 method: 'POST',
                 headers: {

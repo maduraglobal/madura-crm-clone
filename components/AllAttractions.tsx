@@ -798,7 +798,7 @@ const AllAttractions: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser }
 
         setIsSaving(true);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/sightseeing/bulk-update-prices`, {
                 method: 'POST',
                 headers: {
@@ -842,7 +842,7 @@ const AllAttractions: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser }
 
         setIsSaving(true);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/sightseeing/bulk-update-currency`, {
                 method: 'POST',
                 headers: {
@@ -897,7 +897,7 @@ const AllAttractions: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser }
 
         setIsSaving(true);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/sightseeing/bulk-delete`, {
                 method: 'POST',
                 headers: {
@@ -952,7 +952,7 @@ const AllAttractions: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser }
                 };
             });
 
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/sightseeing/generate-details`, {
                 method: 'POST',
                 headers: {
@@ -1205,7 +1205,7 @@ const AllAttractions: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser }
             const attractions = await parseExcelFile(bulkUploadFile);
             setBulkUploadProgress({ total: attractions.length, processed: 0, success: 0, failed: 0 });
 
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/sightseeing/bulk-create`, {
                 method: 'POST',
                 headers: {

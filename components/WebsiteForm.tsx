@@ -3,7 +3,7 @@ import { useToast } from './ToastProvider';
 
 const WebsiteForm: React.FC = () => {
     const { addToast } = useToast();
-    const webhookUrl = `https://api.maduratravel.com/api/lead/website`;
+    const webhookUrl = `https://api1.maduratravel.com/api/lead/website`;
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(webhookUrl).then(() => {

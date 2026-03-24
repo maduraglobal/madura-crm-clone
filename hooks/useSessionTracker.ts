@@ -39,7 +39,7 @@ export const useSessionTracker = (options: SessionTrackerOptions = {}) => {
   const sessionTokenRef = useRef<string | null>(null);
 
   // Get API base URL
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
 
   // Generate unique session token for this tab
   useEffect(() => {

@@ -157,7 +157,7 @@ const TransferDetailPanel: React.FC<{
 
         setIsSaving(true);
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             
             // First upload image if there's a new file
             let imageUrl = editedTransfer.image_url;
@@ -745,7 +745,7 @@ const AllTransfers: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser }) 
         }
 
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/transfers/template`, {
                 headers: {
                     'Authorization': `Bearer ${session.access_token}`,
@@ -797,7 +797,7 @@ const AllTransfers: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser }) 
 
             setUploadProgress({ uploading: true, progress: 30, message: 'Uploading to server...' });
 
-            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+            const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
             const response = await fetch(`${API_BASE}/api/transfers/bulk-upload`, {
                 method: 'POST',
                 headers: {

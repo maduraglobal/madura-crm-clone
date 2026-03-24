@@ -534,7 +534,7 @@ const JobApplicants: React.FC<{ currentUser: LoggedInUser }> = ({ currentUser })
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [applicantToDelete, setApplicantToDelete] = useState<number | null>(null);
 
-    const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+    const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
 
     // Check if user has access (Super Admin, Manager, or Lead Manager tag)
     const hasAccess = currentUser.role_id === 1 ||

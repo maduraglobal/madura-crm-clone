@@ -240,7 +240,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
       // Track logout for session reporting
       try {
-        const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+        const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
         const { data: { session: currentSession } } = await supabase.auth.getSession();
         if (currentSession?.access_token) {
           await fetch(`${API_BASE}/api/sessions/logout`, {
@@ -351,7 +351,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
             // Track login for session reporting (non-blocking, fails silently)
             try {
-              const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+              const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
               // Add timeout and better error handling
               const controller = new AbortController();
               const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout

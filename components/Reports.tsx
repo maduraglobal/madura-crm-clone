@@ -385,7 +385,7 @@ const Reports: React.FC = () => {
 
             setSessionLoading(true);
             try {
-                const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api.maduratravel.com';
+                const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://api1.maduratravel.com';
                 const params = new URLSearchParams({
                     staffId: selectedStaffId.toString(),
                     startDate: startDate,

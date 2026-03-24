@@ -9,7 +9,7 @@ export default defineConfig(({ command, mode }) => {
       proxy: {
         // Proxy API requests to the Node.js backend server
         '/api': {
-          target: 'https://api.maduratravel.com',
+          target: 'https://api1.maduratravel.com',
           changeOrigin: true,
         },
       },
