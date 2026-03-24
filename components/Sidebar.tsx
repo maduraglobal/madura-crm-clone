@@ -282,7 +282,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ profile, isCollapsed, setIsCol
                 <div className={`flex items-center h-14 sm:h-16 shrink-0 border-b border-slate-800 ${isCollapsed ? 'md:justify-center md:px-0' : 'justify-between px-4'}`}>
                     <div className={`flex items-center gap-2 overflow-hidden ${isCollapsed ? 'md:w-0 md:overflow-hidden' : 'w-full'} px-2 md:px-0`}>
                         <MaduraLogo />
-                        <span className={`font-bold text-lg whitespace-nowrap transition-opacity duration-200 ${isCollapsed ? 'md:opacity-0' : 'opacity-100'}`}>Madura CRM</span>
+                        <span className={`font-bold text-lg whitespace-nowrap transition-opacity duration-200 ${isCollapsed ? 'md:opacity-0' : 'opacity-100'}`}>Madura travel CRM</span>
                     </div>
                     {onMobileClose ? (
                         <button onClick={onMobileClose} className="md:hidden p-2 rounded-lg text-slate-400 hover:bg-slate-700 min-h-[44px] min-w-[44px]" aria-label="Close menu">
