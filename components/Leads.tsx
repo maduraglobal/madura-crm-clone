@@ -2701,6 +2701,7 @@ export const LeadDetailPanel: React.FC<{
                 end_date: payload.end_date,
                 created_by_staff_id: currentUser.id,
                 customer_id: payload.customer_id || null,
+                created_at: new Date().toISOString(),
             }).select('id').single();
             if (taskError || !newTask) {
                 addToast('Failed to create task: ' + (taskError?.message || 'Unknown error'), 'error');

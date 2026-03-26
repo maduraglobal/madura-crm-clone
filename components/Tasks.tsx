@@ -217,6 +217,7 @@ export const Tasks: React.FC<TasksProps> = ({ currentUser }) => {
         end_date: payload.end_date,
         created_by_staff_id: currentUser.id,
         customer_id: payload.customer_id || null,
+        created_at: new Date().toISOString(),
       }).select('id').single();
       if (taskError || !newTask) { addToast('Failed to create task: ' + (taskError?.message || 'Unknown error'), 'error'); return; }
       if (effectiveAssigneeIds.length) await supabase.from('task_assignees').insert(effectiveAssigneeIds.map(staff_id => ({ task_id: newTask.id, staff_id })));
