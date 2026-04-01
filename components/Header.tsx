@@ -196,8 +196,7 @@ const Header: React.FC<{ profile: LoggedInUser; onMenuClick?: () => void }> = ({
   const { navigate } = useRouter();
   const { notifications } = useData();
   const unreadNotifications = useMemo(() => notifications.filter(n => !n.read_at).length, [notifications]);
-  const [isChatbotAiEnabled, setIsChatbotAiEnabled] = useState(false);
-  const [isUpdatingAi, setIsUpdatingAi] = useState(true);
+
   const { session } = useAuth();
   const { addToast } = useToast();
 
@@ -213,138 +212,9 @@ const Header: React.FC<{ profile: LoggedInUser; onMenuClick?: () => void }> = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    if (profile.role === 'Super Admin' && session) {
-        const AI_CACHE_KEY = 'chatbot_ai_enabled_cache';
-        const AI_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
-        const AI_FETCH_TIMEOUT_MS = 8000;
 
-        const getCached = (): boolean | null => {
-            try {
-                const raw = sessionStorage.getItem(AI_CACHE_KEY);
-                if (!raw) return null;
-                const { value, ts } = JSON.parse(raw);
-                if (Date.now() - ts > AI_CACHE_TTL_MS) return null;
-                return value === true;
-            } catch {
-                return null;
-            }
-        };
-        const setCached = (value: boolean) => {
-            try {
-                sessionStorage.setItem(AI_CACHE_KEY, JSON.stringify({ value, ts: Date.now() }));
-            } catch (_e) {}
-        };
 
-        const cached = getCached();
-        if (cached !== null) {
-            setIsChatbotAiEnabled(cached);
-            setIsUpdatingAi(false);
-            return;
-        }
 
-        const timeoutId = setTimeout(() => {
-            const fetchAiStatus = async () => {
-                setIsUpdatingAi(true);
-                try {
-                    const { data: { session: currentSession } } = await supabase.auth.getSession();
-                    if (!currentSession?.access_token) throw new Error('No active session');
-
-                    const controller = new AbortController();
-                    const timeout = setTimeout(() => controller.abort(), AI_FETCH_TIMEOUT_MS);
-
-                    let response = await fetch(`${API_BASE_URL}/api/settings/is_chatbot_ai_enabled`, {
-                        headers: { 'Authorization': `Bearer ${currentSession.access_token}` },
-                        signal: controller.signal,
-                    });
-                    clearTimeout(timeout);
-
-                    if (response.status === 401) {
-                        const { data: { session: refreshedSession } } = await supabase.auth.refreshSession(currentSession);
-                        if (refreshedSession?.access_token) {
-                            const c2 = new AbortController();
-                            const t2 = setTimeout(() => c2.abort(), AI_FETCH_TIMEOUT_MS);
-                            response = await fetch(`${API_BASE_URL}/api/settings/is_chatbot_ai_enabled`, {
-                                headers: { 'Authorization': `Bearer ${refreshedSession.access_token}` },
-                                signal: c2.signal,
-                            });
-                            clearTimeout(t2);
-                        } else throw new Error('Failed to refresh session');
-                    }
-
-                    if (!response.ok) throw new Error('Failed to fetch AI status');
-                    const data = await response.json();
-                    const enabled = data === true || data === 'true';
-                    setIsChatbotAiEnabled(enabled);
-                    setCached(enabled);
-                } catch (_error) {
-                    setIsChatbotAiEnabled(false);
-                } finally {
-                    setIsUpdatingAi(false);
-                }
-            };
-            fetchAiStatus();
-        }, 2000);
-
-        return () => clearTimeout(timeoutId);
-    } else {
-        setIsUpdatingAi(false);
-    }
-  }, [profile.role, session, API_BASE_URL]);
-
-  const handleToggleAi = async () => {
-      if (!session) return;
-      const newValue = !isChatbotAiEnabled;
-      setIsUpdatingAi(true);
-      try {
-          // Get fresh session before making API call
-          const { data: { session: currentSession } } = await supabase.auth.getSession();
-          if (!currentSession?.access_token) {
-              throw new Error('No active session');
-          }
-          
-          let response = await fetch(`${API_BASE_URL}/api/settings/is_chatbot_ai_enabled`, {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${currentSession.access_token}`,
-              },
-              body: JSON.stringify({ value: newValue }),
-          });
-          
-          // If 401, try to refresh session and retry once
-          if (response.status === 401) {
-              const { data: { session: refreshedSession } } = await supabase.auth.refreshSession(currentSession);
-              if (refreshedSession?.access_token) {
-                  response = await fetch(`${API_BASE_URL}/api/settings/is_chatbot_ai_enabled`, {
-                      method: 'POST',
-                      headers: {
-                          'Content-Type': 'application/json',
-                          'Authorization': `Bearer ${refreshedSession.access_token}`,
-                      },
-                      body: JSON.stringify({ value: newValue }),
-                  });
-              } else {
-                  throw new Error('Failed to refresh session');
-              }
-          }
-          
-          if (!response.ok) {
-              const errorData = await response.json().catch(() => ({ message: 'Failed to update AI setting' }));
-              throw new Error(errorData.message || 'Failed to update AI setting');
-          }
-          setIsChatbotAiEnabled(newValue);
-          try {
-              sessionStorage.setItem('chatbot_ai_enabled_cache', JSON.stringify({ value: newValue, ts: Date.now() }));
-          } catch (_e) {}
-          addToast(`WhatsApp Chatbot AI has been ${newValue ? 'enabled' : 'disabled'}.`, 'success');
-      } catch (error: any) {
-          console.error(error);
-          addToast(`Failed to update AI setting: ${error.message}`, 'error');
-      } finally {
-          setIsUpdatingAi(false);
-      }
-  };
 
   const handleAddNew = (itemType: 'customer' | 'lead' | 'branch' | 'staff') => {
     sessionStorage.setItem('action', `new-${itemType}`);
@@ -371,20 +241,7 @@ const Header: React.FC<{ profile: LoggedInUser; onMenuClick?: () => void }> = ({
         </div>
         <div className="flex-1 md:flex-none flex items-center justify-end gap-1 sm:gap-2 md:space-x-4">
           <NotificationsBell onClick={() => setIsNotificationsOpen(prev => !prev)} unreadCount={unreadNotifications} />
-          {profile.role === 'Super Admin' && (
-            <div className="flex items-center gap-2" title="Toggle WhatsApp Chatbot AI">
-                <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                <button
-                    onClick={handleToggleAi}
-                    disabled={isUpdatingAi}
-                    className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 ${isChatbotAiEnabled ? 'bg-blue-600' : 'bg-gray-600'}`}
-                >
-                    <span
-                        className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${isChatbotAiEnabled ? 'translate-x-5' : 'translate-x-0'}`}
-                    />
-                </button>
-            </div>
-          )}
+
           <div className="relative" ref={addMenuRef}>
             <button onClick={() => setIsAddMenuOpen(prev => !prev)} className="p-2 rounded-md text-gray-400 hover:bg-gray-700 hover:text-white">
               <IconPlus className="w-6 h-6" />
